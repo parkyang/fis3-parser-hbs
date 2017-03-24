@@ -1,10 +1,9 @@
 # fis3-parser-hbs
-fis3-parser-handlebars 。具体用法请参考 [http://handlebarsjs.com/](http://handlebarsjs.com/)
+fis3-parser-handlebars 。依赖的handlebars具体用法请参考 [http://handlebarsjs.com/](http://handlebarsjs.com/)
 
 ## Install
-* `npm install --save-dev handlebars`
 
-* `npm install --save-dev fis3-parser-hbs-3x`
+* `npm install -g fis3-parser-hbs-3x`
 
 ## Use
 默认参数设置:
