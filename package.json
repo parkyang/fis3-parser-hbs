@@ -1,0 +1,26 @@
+{
+  "name": "fis3-parser-hbs",
+  "version": "0.0.1",
+  "description": "fis3的handlebars模版插件",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parkyang/fis3-parser-hbs.git"
+  },
+  "keywords": [
+    "fis3",
+    "fis3-parser-hbs"
+  ],
+  "author": "yangming",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/parkyang/fis3-parser-hbs/issues"
+  },
+  "homepage": "https://github.com/parkyang/fis3-parser-hbs#readme",
+  "devDependencies": {
+    "handlebars": "^4.0.6"
+  },
+}
