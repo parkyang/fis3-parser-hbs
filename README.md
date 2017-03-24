@@ -1,12 +1,12 @@
 # fis3-parser-hbs
 fis3-parser-handlebars 。具体用法请参考 [http://handlebarsjs.com/](http://handlebarsjs.com/)
 
-###Install
+##Install
 * `npm install --save-dev handlebars`
 
 * `npm install --save-dev https://github.com/parkyang/fis3-parser-hbs.git`
 
-###Use
+##Use
 默认参数设置:
 
 	{
@@ -21,7 +21,7 @@ fis-conf.js配置
   		rExt: '.html'
 	});
 	
-###Example
+##Example
 index.html 内容:
 
 	<link rel="import" href="hbs/layout.hbs?__inline">
