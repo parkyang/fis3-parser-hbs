@@ -1,5 +1,5 @@
 {
-  "name": "fis3-parser-hbs",
+  "name": "fis3-parser-hbs-3x",
   "version": "0.0.1",
   "description": "fis3的handlebars模版插件",
   "main": "index.js",
@@ -22,5 +22,5 @@
   "homepage": "https://github.com/parkyang/fis3-parser-hbs#readme",
   "devDependencies": {
     "handlebars": "^4.0.6"
-  },
+  }
 }

@@ -4,7 +4,7 @@ fis3-parser-handlebars 。具体用法请参考 [http://handlebarsjs.com/](http:
 ## Install
 * `npm install --save-dev handlebars`
 
-* `npm install --save-dev https://github.com/parkyang/fis3-parser-hbs.git`
+* `npm install --save-dev fis3-parser-hbs-3x`
 
 ## Use
 默认参数设置:
