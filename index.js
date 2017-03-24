@@ -42,7 +42,14 @@ var handles = function(content,file,options){
       return body||'';
     });
     //当引入的 partial 有自定义值时，进行值覆盖
-    let data = Object.assign(require(path.join(file.dirname,file.filename+opts.postfix)),isData&&typeof(options)?options:{});
+    let dataFilePath = path.join(file.dirname,file.filename+opts.postfix);
+    let jsonData = {};
+    //如果json存在并且有值才进行保存
+    if(fis.file(dataFilePath).exists()&&fis.util.isFile(dataFilePath)){
+      var json = require(dataFilePath);
+      fis.util.isEmpty(json)||(jsonData=json);
+    }
+    let data = Object.assign(jsonData,isData&&typeof(options)?options:{});
     let tpl = hbs.compile(content);
     //缓存 partial
     opts.partials[name]||(opts.partials[name]=tpl);
