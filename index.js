@@ -31,7 +31,7 @@ var handles = function(content,file,options){
     }
     let name = file.fullname.replace(file.dirname+'/','').replace(file.ext,'');
     //从内容中提取 partials 并进行内容替换
-    var content = content.replace(/\{\{>(\w+)(\s*[^\}\s])*\}\}/g,function(a,b){
+    var content = content.replace(/\{\{>([\w\/\.]+)(\s*[^\}\s])*\}\}/g,function(a,b){
       var body = '';
       if(!opts.partials[b]){
         var filepath = path.join(file.dirname,b+opts.extname);
@@ -51,8 +51,9 @@ var handles = function(content,file,options){
     }
     let data = Object.assign(jsonData,isData&&typeof(options)?options:{});
     let tpl = hbs.compile(content);
+    let partialName = file.subpathNoExt.replace('/','');
     //缓存 partial
-    opts.partials[name]||(opts.partials[name]=tpl);
+    opts.partials[partialName]||(opts.partials[partialName]=tpl);
     return tpl(data,opts); // 处理后的文件内容
 };
 module.exports = function (content, file, options) {
