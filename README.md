@@ -34,11 +34,14 @@ layout.hbs 内容:
 	<body>
 	{{>test name="test" age=18 list=[1,2,3,4,5]}}
 	{{>common/header}}
+	{{>common/body data_json="xxx.json"}} //json文件数据覆盖
+	{{>common/footer}}
 	...
 	</body>
 	</html>
 	
 `说明：此处layout.hbs、test.hbs以及common文件夹同级`
 
+* {{>`/xxx/xxx`}}表示根目录底下的`xxx/xxx`
 * 此处 `test`为模块名，name、age、list等分别为data的属性与值
 * 属性的值为字符串需加双引号(`"`)或单引号(`'`)
