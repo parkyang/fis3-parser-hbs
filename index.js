@@ -35,28 +35,25 @@ function custom_data(str,file){
   });
   return data||{};
 }
-var handles = function(content,file,options){
+var handles = function(content,file,options,cache){
     if(!opts){
       opts = Object.assign({},def,options);
     }
     let name = file.fullname.replace(file.dirname+'/','').replace(file.ext,'');
-    if (file.useCache&&!file.cache) {
-      // 如果启用，则创建 cache 对象
-      file.cache = fis.cache(file.realpath, fis.project.getCachePath());
-      // 保存内容以及信息到缓存中。
-      file.cache.save();
-    }
     //从内容中提取 partials 并进行内容替换
     var content = content.replace(/\{\{>([\w\/\.]+)(\s*[^\}\s])*\}\}/g,function(a,b){
-      var body = '';
+      var body = '',filepath=filepath = path.join(b.indexOf('/')===0?fis.project.getProjectPath():file.dirname,b+opts.extname);
+      (cache.indexOf(filepath)>-1)||cache.push(filepath);
+      if(body&&file.cache&&file.cache.addDeps){
+        cache.map(function(item){
+          file.cache.addDeps(item);
+          return item;
+        })
+      }
       if(!opts.partials[b]){
-        var filepath = path.join(b.indexOf('/')===0?fis.project.getProjectPath():file.dirname,b+opts.extname);
         var fl = fis.file(filepath),
         _cdata = custom_data(arguments[0],file.dirname);
-        body = handles(fl.getContent().toString(fl.charset),fl,custom_data(arguments[0],file));
-      }
-      if(body&&file.cache&&file.cache.addDeps){
-        file.cache.addDeps(file.fullname);
+        body = handles(fl.getContent().toString(fl.charset),fl,custom_data(arguments[0],file),cache);
       }
       return body||'';
     });
@@ -66,10 +63,13 @@ var handles = function(content,file,options){
     //如果json存在并且有值才进行保存
     if(fis.file(dataFilePath).exists()&&fis.util.isFile(dataFilePath)){
       var json = JSON.parse(fis.file(dataFilePath).getContent());
-      fis.util.isEmpty(json)||(jsonData=json);
-      if(file.cache&&file.cache.addDeps){
-        file.cache.addDeps(dataFilePath);
-      }
+      fis.util.isEmpty(json)||(jsonData=json,cache.push(dataFilePath));
+    }
+    if(file.cache&&file.cache.addDeps){
+      cache.map(function(item){
+        file.cache.addDeps(item);
+        return item;
+      })
     }
     let data = Object.assign({},jsonData,options||{});
     let tpl = hbs.compile(content);
@@ -79,5 +79,5 @@ var handles = function(content,file,options){
     return tpl(data,opts); // 处理后的文件内容
 };
 module.exports = function (content, file, options) {
-  return handles(content.toString(file.charset),file,options);
+  return handles(content.toString(file.charset),file,options,[]);
 }
